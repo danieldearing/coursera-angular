@@ -22,20 +22,28 @@ function FoundItemsDirective() {
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController (MenuSearchService) {
 	var menu = this;
-	menu.found = [];
 	menu.isEmpty = false;
 	
 	menu.getItems = function() {
+		if ( !menu.searchTerm ) {
+			menu.found = []
+			menu.isEmpty = true;
+			return
+		}
+
+		menu.searchTerm = menu.searchTerm.toLowerCase()
+
 		var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
 		promise.then(function (result) {
 			menu.found = result;
+			if ( menu.found.length === 0 ) {
+				menu.isEmpty = true;
+			}
+			else {
+				menu.isEmpty = false;
+			}
+			return menu.found
 		});
-		if ( menu.found.length === 0 ) {
-			menu.isEmpty = true;
-		}
-		else {
-			menu.isEmpty = false;
-		}
 	};
 
 	menu.removeItem = function(itemIndex) {
@@ -50,6 +58,10 @@ function MenuSearchService($http, ApiBasePath) {
  	service.getMatchedMenuItems = function (searchTerm) {
  		service.foundItems = [];
 
+ 		if ( searchTerm ) {
+ 			searchTerm = searchTerm.toLowerCase();
+ 		}
+
 		return $http({
 			method: "GET",
 			url: (ApiBasePath + '/menu_items.json'),
@@ -57,7 +69,7 @@ function MenuSearchService($http, ApiBasePath) {
 
 			var items = result.data['menu_items'];
 			for ( var i = 0; i < items.length; i++ ) {
-				if ( items[i].description.includes(searchTerm.toLowerCase()) ) {
+				if ( items[i].description.includes(searchTerm) ) {
 					service.foundItems.push(items[i]);
 				};
 			};
