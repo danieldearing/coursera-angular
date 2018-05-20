@@ -4,8 +4,8 @@
 angular.module('Data')
 .controller('MenuDataController', MenuDataController);
 
-MenuDataController.$inject = ['MenuDataService', 'items'];
-function MenuDataController(MenuDataService, items) {
+MenuDataController.$inject = ['items'];
+function MenuDataController(items) {
   var mainlist = this;
   mainlist.items = items;
 }
