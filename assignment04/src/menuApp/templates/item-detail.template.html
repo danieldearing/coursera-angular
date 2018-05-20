@@ -1,0 +1,11 @@
+
+<ul>
+  <li ng-repeat="item in $ctrl.categoryItems">
+
+
+    <div ng-repeat="key in item.keys">
+    		{{ key }}: {{ item[key] }}
+    	</div>
+    </div>
+  </li>
+</ul>
