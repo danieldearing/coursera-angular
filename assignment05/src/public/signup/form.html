@@ -1,0 +1,48 @@
+<div class="container" ng-controller="SignupFormController as formCtrl">
+	<h2 id="menu-categories-title" class="text-center">Sign Up</h2>
+	
+	<form id="signup-form" name='myInfoForm' novalidate>
+		<input type="text" name="firstname" placeholder="Firat Name" 
+			ng-model="formCtrl.firstname"
+			required>
+			<div class="error"
+				ng-if="myInfoForm.firstname.$error.required && myInfoForm.firstname.$touched">
+				*Please insert your first name
+			</div>
+		<input type="text" name="lastname" placeholder="Last Name" 
+			ng-model="formCtrl.lastname"
+			required>
+		<div class="error"
+			ng-if="myInfoForm.lastname.$error.required && myInfoForm.lastname.$touched">
+			*Please insert your last name
+		</div>
+		<input type="email" name="email" placeholder="Email"
+			ng-model="formCtrl.email"
+			required>
+			<div class="error"
+				ng-if="myInfoForm.email.$invalid && myInfoForm.email.$touched">
+				*Must be a valid e-mail address: handle@domain format
+			</div>
+		<input type="text" name="phone" placeholder="Phone"
+			ng-model="formCtrl.phone"
+			required>
+			<div class="error"
+				ng-if="myInfoForm.phone.$error.required && myInfoForm.phone.$touched">
+				*Please insert your phone number
+			</div>
+		<input type="text" name="favourite" placeholder="Favourtie Dish"
+			ng-model="formCtrl.favourite"
+			required
+			ng-minlength="2"
+			ng-maxlength="4">
+			<div class="error"
+				ng-if="myInfoForm.favourite.$error.required && myInfoForm.favourite.$touched || formCtrl.error">
+				No such menu number exists
+			</div>
+
+		<button ng-disabled="myInfoForm.$invalid" ng-click="formCtrl.submit()">Submit</button>
+	</form>
+	<dir class="confirmation" ng-if="formCtrl.saved">
+		Your information has been saved
+	</dir>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+	<h2 id="menu-categories-title" class="text-center">My Info</h2>
+	<div ng-if="infoCtrl.signedUp()">
+		First name: {{infoCtrl.info.firstname}}<br/>
+		Last name: {{infoCtrl.info.lastname}}<br/>
+		Email: {{infoCtrl.info.email}}<br/>
+		Phone: {{infoCtrl.info.phone}}<br/>
+		Favourite Dish:<br/>
+    <div class="menu-item-description">
+      <h3 class="menu-item-title">{{infoCtrl.info.favourite.name}}</h3>
+      <p class="menu-item-details">{{infoCtrl.info.favourite.description}}</p>
+    </div>
+		<div class="menu-item-photo favourite">
+			<div>{{infoCtrl.info.favourite.short_name}}</div>
+			<img class="img-responsive" width="250" height="150" ng-src="https://ddearing-coursera.herokuapp.com/images/{{infoCtrl.info.favourite.short_name}}.jpg" alt="{{infoCtrl.info.favourite.name}}">
+	</div>
+	</div>
+
+	<dir ng-if="!infoCtrl.signedUp()">
+		Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a>
+	</dir>
+
+</div>
